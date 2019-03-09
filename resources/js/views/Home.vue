@@ -57,8 +57,6 @@
         errors          : [],
         twitchOAuthToken: '',
         events          : [],
-        ws              : '',
-        twitchOAuthState: ''
       }
     },
 
@@ -67,11 +65,9 @@
         this.whenChannelNameSets();
       }
 
-      this.twitchOAuthToken         = this.getHashValue('access_token');
-      localStorage.twitchOAuthState = localStorage.twitchOAuthState === "undefined" ? this.nonce(15) : localStorage.twitchOAuthState;
-      this.twitchOAuthState         = localStorage.twitchOAuthState;
+      this.twitchOAuthToken = this.getHashValue('access_token');
       // For twitch embed:
-      let twitchEmbed               = document.createElement('script');
+      let twitchEmbed = document.createElement('script');
       twitchEmbed.setAttribute('src', 'https://embed.twitch.tv/embed/v1.js');
       document.head.appendChild(twitchEmbed);
     },
