@@ -18,3 +18,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 .DS_Store
+node_modules
