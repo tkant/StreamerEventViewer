@@ -1,0 +1,18 @@
+@import "./custom.scss";
+
+$footer-height: 60px;
+
+main.container {
+  padding-top: 70px;
+  margin-bottom: 70px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $footer-height;
+  line-height: $footer-height;
+  background-color: #f5f5f5;
+}

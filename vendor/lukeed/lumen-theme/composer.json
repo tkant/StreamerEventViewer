@@ -1,0 +1,40 @@
+{
+    "name": "lukeed/lumen-theme",
+    "description": "Add theming support to your Lumen 5.* projects",
+    "keywords": [
+        "theme",
+        "lumen",
+        "templates",
+        "views"
+    ],
+    "homepage": "https://github.com/lukeed/lumen-theme",
+    "license": "MIT",
+    "authors": [{
+        "name": "Karlo Mikuš",
+        "email": "contact@karlomikus.com"
+    },{
+        "name": "Luke Edwards",
+        "email": "luke@lukeed.com"
+    }],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "mockery/mockery": "0.9.*",
+        "orchestra/testbench": "3.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lukeed\\Theme\\": "src/Theme"
+        },
+        "files": [
+            "src/Theme/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    }
+}
