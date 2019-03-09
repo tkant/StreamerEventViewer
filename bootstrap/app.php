@@ -100,4 +100,10 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+
+$json = new \Monolog\Formatter\JsonFormatter();
+$stdouthandler = new \Monolog\Handler\StreamHandler('php://stdout', 'debug');
+$stdouthandler->setFormatter($json);
+Log::pushHandler($stdouthandler);
+
 return $app;
