@@ -22,8 +22,8 @@ class Controller extends BaseController
      * Controller constructor.
      */
     public function __construct() {
-        $this->streamCallbackURI = sprintf('%s/%s', URL::to('/'), self::STREAM_CALLBACK);
-        $this->authRedirectURI   = sprintf('%s/%s', URL::to('/'), self::REDIRECT_URI);
+        $this->streamCallbackURI = sprintf('%s/%s', url('/', [], true), self::STREAM_CALLBACK);
+        $this->authRedirectURI   = sprintf('%s/%s', url('/', [], true), self::REDIRECT_URI);
         $this->twitchAPI         = new NewTwitchApi\NewTwitchApi(new NewTwitchApi\HelixGuzzleClient(
             env('TWITCH_CLIENT_ID')), env('TWITCH_CLIENT_ID'), env('TWITCH_SECRET')
         );
