@@ -28,16 +28,20 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm">
-                    <div id="twitch-embed"></div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="twitch-embed" class="embed-responsive-item"></div>
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-sm">
+                <div class="col-sm" v-if="events[0]">
                     <h5>Recent Events <small class="text-muted">Topic: Stream Changed</small>
                     </h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" v-for="event in events">{{ event }}</li>
-                    </ul>
+                    <div class="events-wrapper">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" v-for="event in events">{{ event }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,6 +61,9 @@
         errors          : [],
         twitchOAuthToken: '',
         events          : [],
+        pusher          : new Pusher('c66297d877b979b6d1f5', {
+          cluster: 'ap2'
+        })
       }
     },
 
@@ -83,10 +90,11 @@
       embedTwitch() {
         document.getElementById("twitch-embed").innerHTML = "";
         let embed = new Twitch.Embed("twitch-embed", {
-          width   : 854,
-          height  : 480,
+          width   : '100%',
+          height  : 'auto',
           channel : localStorage.channel_name,
           layout  : "video-with-chat",
+          theme   : 'dark',
           autoplay: false
         });
 
@@ -98,17 +106,20 @@
         // Get streamer user-id and invoke subscription to stream, web-hook!
         axios.get('./api/streamer/' + this.channel_name + '/' + this.twitchOAuthToken)
              .then(response => {
+               // Empty the events data:
+               this.events = [];
                // JSON responses are automatically parsed.
-               this.streamer_id = response.data;
-               let pusher = new Pusher('c66297d877b979b6d1f5', {
-                 cluster: 'ap2'
-               });
-               pusher.logToConsole = true;
+               let stream_message = response.data.message;
+               if (stream_message !== '') {
+                 this.events.unshift(stream_message);
+               }
+
+               this.pusher.logToConsole = true;
                // Subscribe for incoming messages from pubsub, channel organized by streamer name.
-               pusher.subscribe(this.channel_name);
-               pusher.bind('stream_changed', data => {
+               this.pusher.subscribe(this.channel_name);
+               this.pusher.bind('stream_changed', data => {
                  console.log('Incoming data via pusher..', data);
-                 this.events.push(data.message);
+                 this.events.unshift(data.message);
                });
              })
              .catch(e => {
@@ -119,8 +130,14 @@
 
     watch  : {
       channel_name(newChannelName) {
-        localStorage.channel_name = newChannelName;
-        this.whenChannelNameSets();
+        // Disconnect any old WS
+        let old_channel = localStorage.channel_name;
+        this.pusher.unsubscribe(old_channel);
+        // Unbind all events, this is to remove the duplicated message being recieved
+        this.pusher.unbind_all(() => {
+          localStorage.channel_name = newChannelName;
+          this.whenChannelNameSets();
+        });
       },
       '$route': 'embedTwitch'
     }

@@ -19,7 +19,7 @@ class TwitchController extends Controller {
      * @param string $streamerName
      * @param string $accessToken
      *
-     * @return int
+     * @return array|bool
      */
     public function pubsubSubscribeToStreamer(string $streamerName, string $accessToken) {
         try {
@@ -32,15 +32,22 @@ class TwitchController extends Controller {
 
         $userInfo = json_decode($userInfo);
         $userID   = 0;
+        $message  = '';
         if (!empty($userInfo->data)) {
-            Log::debug('Found user with id: ' . reset($userInfo->data)->user_id);
+            $userData = reset($userInfo->data);
+            $userID   = $userData->user_id;
 
-            $userID = reset($userInfo->data)->game_id;
+            Log::debug('Found user with id: ' . $userID);
+
+            $message = sprintf('%s: %s, %s => %s viewers', $userData->user_name, $userData->title,
+                               $userData->type, $userData->viewer_count);
         }
 
         $this->subscribeToStream($userID, $accessToken);
 
-        return $userID;
+        return [
+            'user_id' => $userID, 'message' => $message
+        ];
     }
 
     /**

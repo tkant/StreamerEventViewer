@@ -42,7 +42,7 @@ class PubSubController extends Controller {
             case Request::METHOD_POST:
                 if (!empty($request->json()->get('data'))) {
                     foreach ($request->json()->get('data') as $k => $v) {
-                        $message = sprintf('%s: %s, %s => %s', $v['user_name'], $v['title'], $v['type'],
+                        $message = sprintf('%s: %s, %s => %s viewers', $v['user_name'], $v['title'], $v['type'],
                                            $v['viewer_count']);
                         // Submit message to channel by user_name of streamer
                         $this->sendToPusher($v['user_name'], $message);

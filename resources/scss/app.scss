@@ -5,6 +5,10 @@ $footer-height: 60px;
 main.container {
   padding-top: 70px;
   margin-bottom: 70px;
+  .events-wrapper {
+    max-height: 520px;
+    overflow-y: scroll;
+  }
 }
 
 .footer {
