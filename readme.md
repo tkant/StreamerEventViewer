@@ -55,5 +55,8 @@ Let me go though components one by one:
 
 ![pusher_integration](https://user-images.githubusercontent.com/11471896/54080988-6db46a00-4322-11e9-91fe-e5f985d03d5a.gif)
 
+Video link on youtube: https://www.youtube.com/watch?v=svDayUVu2gM
+
 ^^ Left side shows pusher dashboard, from where custom message is being sent on channel by streamer username.
+
 ^^ Right side shows a connected client watching a live stream, below there the client subscriber renders message upon receiving any message from pusher via websocket.    
