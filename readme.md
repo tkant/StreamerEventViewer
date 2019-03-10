@@ -48,4 +48,12 @@ Let me go though components one by one:
 - Route53 -> For managing DNS records
 - RDS -> Though this app wont uses any persistent data-store but for future enhancements we will for sure need it, hence added in Master / Slave configuration
 - SNS -> In this app we had utilized Pusher for pubsub, on AWS it can be replaced with SNS. 
-- Rest depends on how Twitch API is performing, since this app is highly dependent over that. But this architecture on AWS can handle millions of request. Scaling needs to be configured on the basis of *cloudwatch alarms* setted-up on top of CPU & Memory utilization matrices collected from each horizontally placed instances. Keep the minimum instance count, and set maximum as per budget and predetermined traffic case.   
+- Rest depends on how Twitch API is performing, since this app is highly dependent over that. But this architecture on AWS can handle millions of request. Scaling needs to be configured on the basis of *cloudwatch alarms* setted-up on top of CPU & Memory utilization matrices collected from each horizontally placed instances. Keep the minimum instance count, and set maximum as per budget and predetermined traffic case.
+
+
+## Pusher PubSub DEMO:
+
+![pusher_integration](https://user-images.githubusercontent.com/11471896/54080988-6db46a00-4322-11e9-91fe-e5f985d03d5a.gif)
+
+^^ Left side shows pusher dashboard, from where custom message is being sent on channel by streamer username.
+^^ Right side shows a connected client watching a live stream, below there the client subscriber renders message upon receiving any message from pusher via websocket.    
