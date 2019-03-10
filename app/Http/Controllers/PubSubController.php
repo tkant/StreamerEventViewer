@@ -55,7 +55,7 @@ class PubSubController extends Controller {
                 throw new \HttpRequestException(sprintf('Request method %s not supported!', $request->method()));
         }
 
-        return true;
+        return response()->json(['message' => 'Messages published!'], 200);
     }
 
     /**
