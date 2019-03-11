@@ -100,7 +100,9 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
-
+/**
+ * Logs to Standard Output
+ */
 $json = new \Monolog\Formatter\JsonFormatter();
 $stdouthandler = new \Monolog\Handler\StreamHandler('php://stdout', 'debug');
 $stdouthandler->setFormatter($json);

@@ -11,6 +11,7 @@ use Pusher\PusherException;
  * Callback handlers from twitch to this application
  *
  * Class PubSubController
+ *
  * @package App\Http\Controllers
  */
 class PubSubController extends Controller {
@@ -19,6 +20,7 @@ class PubSubController extends Controller {
     const PUSHER_SECRET   = 'e9196fb772117b9cc01a';
     const PUSHER_APP_ID   = 731624;
 
+    /** @var Pusher $pusher */
     private $pusher = null;
 
     /**
@@ -59,6 +61,8 @@ class PubSubController extends Controller {
     }
 
     /**
+     * Sends message on specified channel, in this case streamer's username.
+     *
      * @param string $channel
      * @param string $message
      */

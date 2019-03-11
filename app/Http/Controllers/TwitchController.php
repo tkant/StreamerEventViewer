@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class TwitchController
+ *
+ * @package App\Http\Controllers
+ */
 class TwitchController extends Controller {
     /**
      * TwitchController constructor.
@@ -23,11 +28,12 @@ class TwitchController extends Controller {
      */
     public function pubsubSubscribeToStreamer(string $streamerName, string $accessToken) {
         try {
+            // Gets streamer info by username
             $userInfo = $this->twitchAPI->getStreamsApi()->getStreamForUsername($streamerName)->getBody()->getContents();
         } catch (GuzzleException $e) {
             Log::critical(sprintf('Unable to get user-info for: %s', $streamerName));
 
-            return false;
+            return response()->json(['message' => 'Bad request!'], 400);
         }
 
         $userInfo = json_decode($userInfo);
@@ -51,7 +57,8 @@ class TwitchController extends Controller {
     }
 
     /**
-     * Subscribe to streamer's stream events
+     * Subscribe to streamer's stream events, utilizing twitch's webhook
+     * @link https://dev.twitch.tv/docs/api/webhooks-reference/#topic-stream-changed
      *
      * @param string $twitchID
      * @param string $bearer

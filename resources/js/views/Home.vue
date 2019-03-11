@@ -133,7 +133,7 @@
         // Disconnect any old WS
         let old_channel = localStorage.channel_name;
         this.pusher.unsubscribe(old_channel);
-        // Unbind all events, this is to remove the duplicated message being recieved
+        // Unbind all events, this is to remove the duplicated message being received
         this.pusher.unbind_all(() => {
           localStorage.channel_name = newChannelName;
           this.whenChannelNameSets();

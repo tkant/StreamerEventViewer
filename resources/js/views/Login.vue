@@ -6,7 +6,7 @@
                     <div class="text-muted text-center mb-3">
                         <small>Sign in with</small>
                     </div>
-                    <img slot="icon" class="img-thumbnail" src="img/icons/common/twitch_logo.png">
+                    <img slot="icon" v-on:click="fetchData" class="img-thumbnail" src="img/icons/common/twitch_logo.png">
                     <div class="loading" v-if="loading">
                         Loading...
                     </div>
@@ -55,6 +55,7 @@
 
               // Examine the text in the response
               response.text().then(function (data) {
+                // Redirect user to twitch's auth URL
                 that.loading = false;
                 window.location.href =  data;
               });

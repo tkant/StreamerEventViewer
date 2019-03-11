@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use NewTwitchApi;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 
+/**
+ * Class Controller, base class for having common shared properties and methods
+ *
+ * @package App\Http\Controllers
+ */
 class Controller extends BaseController
 {
     const REDIRECT_URI          = '#/home';
     const STREAM_CALLBACK       = 'api/callback';
 
+    /** @var NewTwitchApi\NewTwitchApi $twitchAPI */
     protected $twitchAPI;
+    /** @var string $streamCallbackURI */
     protected $streamCallbackURI;
+    /** @var string $authRedirectURI */
     protected $authRedirectURI;
 
     /**

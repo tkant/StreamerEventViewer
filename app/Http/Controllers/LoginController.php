@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+/**
+ * Class LoginController
+ *
+ * @package App\Http\Controllers
+ */
 class LoginController extends Controller {
     const TWITCH_BASE_OAUTH_URL = 'https://id.twitch.tv/oauth2';
     const TWITCH_SCOPE          = 'user:edit+viewing_activity_read+openid+channel:read:subscriptions+bits:read+channel_subscriptions+channel_read';
-    const TWITCH_SCOPE_OLD      = ['channel_read'];
     const RESPONSE_TYPE         = 'token';
 
     /**
