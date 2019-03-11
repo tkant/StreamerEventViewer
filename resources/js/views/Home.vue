@@ -1,7 +1,7 @@
 <template>
     <section class="section section-shaped section-lg mt-10">
         <div class="container">
-            <form>
+            <form v-on:submit.prevent="embedTwitch">
                 <div class="form-group">
                     <h5>Choose and view different activities happening over your favorite stream</h5>
                     <div class="input-group mb-3">
