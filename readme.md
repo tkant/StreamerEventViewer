@@ -59,4 +59,12 @@ Video link on youtube: https://www.youtube.com/watch?v=svDayUVu2gM
 
 ^^ Left side shows pusher dashboard, from where custom message is being sent on channel by streamer username.
 
-^^ Right side shows a connected client watching a live stream, below there the client subscriber renders message upon receiving any message from pusher via websocket.    
+^^ Right side shows a connected client watching a live stream, below there the client subscriber renders message upon receiving any message from pusher via websocket.
+
+## Twitch webhook callback endpoint DEMO:
+
+![twitch_callback_demo](https://user-images.githubusercontent.com/11471896/54096674-c8a59a00-43d2-11e9-942e-ee4f32d66f10.gif)
+
+^^ Left side shows Postman interface where POST request is being made on the webhook callback API over "Tfue" channel.
+
+^^ Right side shows a connected client watching a live stream, and upon callback completion pushes the message on "Tfue" channel in near realtime.
